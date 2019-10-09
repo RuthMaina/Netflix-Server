@@ -9,11 +9,11 @@ public interface CategoriesService {
 
     Categories findById(Long id);
 
-    Categories createUsers(Categories categories);
+    Categories create(Categories categories);
 
-    void delete(Long id);
+    Long delete(Long id);
 
-    Categories update(Categories categories);
+//    Categories update(Categories categories);
 
-    Categories update(Long id, Categories categories);
+//    Categories update(Long id, Categories categories);
 }
