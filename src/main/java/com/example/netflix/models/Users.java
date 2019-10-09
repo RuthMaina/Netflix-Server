@@ -1,6 +1,7 @@
 package com.example.netflix.models;
 
 import lombok.*;
+import org.apache.commons.text.WordUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,13 +25,13 @@ public class Users {
     @NotNull(message = "Please enter a user name")
     private String name;
 
-    @NotNull(message = "Please enter an id number")
-    @Size(min = 3, message = "The id number should not be less than 3 characters long")
-    @Column(name = "id_number", nullable = false, unique = true)
-    private String idNumber;
+//    @NotNull(message = "Please enter an id number")
+//    @Size(min = 3, message = "The id number should not be less than 3 characters long")
+//    @Column(name = "id_number", nullable = false, unique = true)
+//    private String idNumber;
 
-    @Column(name = "user_type", nullable = false, columnDefinition = "varchar(255) default 'user'")
-    private String userType;
+    @Column(name = "is_admin", nullable = false, columnDefinition = "boolean default false")
+    private boolean isAdmin = false;
 
     @OneToMany(mappedBy = "users")
     private Set<Movies> movies;
