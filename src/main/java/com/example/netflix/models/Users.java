@@ -27,7 +27,7 @@ public class Users {
     @NotNull(message = "Please enter an id number")
     @Size(min = 3, message = "The id number should not be less than 3 characters long")
     @Column(name = "id_number", nullable = false, unique = true)
-    private Long idNumber;
+    private String idNumber;
 
     @Column(name = "user_type", nullable = false, columnDefinition = "varchar(255) default 'user'")
     private String userType;

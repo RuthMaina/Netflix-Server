@@ -30,8 +30,8 @@ public class CategoriesController {
     }
 
     @PostMapping
-    public Categories create(@Valid @RequestBody Categories users) {
-        return categoriesService.create(users);
+    public Categories create(@Valid @RequestBody Categories categories) {
+        return categoriesService.create(categories);
     }
 
     @DeleteMapping(value = "{id}")
