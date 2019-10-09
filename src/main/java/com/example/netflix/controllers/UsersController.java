@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "users")
+@RequestMapping("users")
 @CrossOrigin(origins = "http:/localhost:8088")
 public class UsersController {
     private final UsersService usersService;
@@ -34,7 +34,7 @@ public class UsersController {
     return usersService.create(users);
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "delete/{id}")
     public Map<String, Object> delete(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
         response.put("Record deleted", usersService.delete(id));

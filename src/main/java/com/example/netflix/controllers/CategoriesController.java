@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "categories")
+@RequestMapping("categories")
 @CrossOrigin(origins = "http:/localhost:8088")
 public class CategoriesController {
     private final CategoriesService categoriesService;
@@ -34,7 +34,7 @@ public class CategoriesController {
         return categoriesService.create(categories);
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "delete/{id}")
     public Map<String, Object> delete(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
         response.put("Record deleted", categoriesService.delete(id));
