@@ -2,6 +2,7 @@ package com.example.netflix.models;
 
 import lombok.*;
 import org.apache.commons.text.WordUtils;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,7 +14,6 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-//@NoArgsConstructor
 @Entity(name = "users")
 public class Users {
 
@@ -25,12 +25,8 @@ public class Users {
     @NotNull(message = "Please enter a user name")
     private String name;
 
-//    @NotNull(message = "Please enter an id number")
-//    @Size(min = 3, message = "The id number should not be less than 3 characters long")
-//    @Column(name = "id_number", nullable = false, unique = true)
-//    private String idNumber;
-
-    @Column(name = "is_admin", nullable = false, columnDefinition = "boolean default false")
+    @Column(name = "is_admin")
+    @ColumnDefault(value = "false")
     private boolean isAdmin = false;
 
     @OneToMany(mappedBy = "users")

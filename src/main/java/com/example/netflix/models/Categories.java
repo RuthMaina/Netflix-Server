@@ -11,7 +11,6 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-//@NoArgsConstructor
 @Entity(name = "categories")
 public class Categories {
 

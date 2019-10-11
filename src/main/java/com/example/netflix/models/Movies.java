@@ -2,6 +2,7 @@ package com.example.netflix.models;
 
 import lombok.*;
 import org.apache.commons.text.WordUtils;
+import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-//@NoArgsConstructor
+@SelectBeforeUpdate
 @Entity(name = "movies")
 public class Movies {
 
@@ -23,15 +24,15 @@ public class Movies {
     private Long id;
 
     @NotNull(message = "Please enter the name of the movie")
-    @Column(nullable = false)
+    @Column(name = "movie_name", nullable = false)
     private String movieName;
 
     @NotNull(message = "Please enter the release year of the movie")
-    @Column(nullable = false)
+    @Column(name = "release_year", nullable = false)
     private Year releaseYear;
 
     @NotNull(message = "Please enter the run-time of the movie")
-    @Column(nullable = false)
+    @Column(name = "production_company", nullable = false)
     private String productionCompany;
 
     @GeneratedValue
