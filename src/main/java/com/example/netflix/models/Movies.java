@@ -18,6 +18,8 @@ import java.util.Set;
 @Entity(name = "movies")
 public class Movies {
 
+    final char[] delimiters = { ' ', '_', '-' };
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(updatable = false)
@@ -56,10 +58,10 @@ public class Movies {
     private Users users;
 
     public void setMovieName(String movieName) {
-        this.movieName = WordUtils.capitalizeFully(movieName);
+        this.movieName = WordUtils.capitalizeFully(movieName, delimiters);
     }
 
     public void setProductionCompany(String productionCompany) {
-        this.productionCompany = WordUtils.capitalizeFully(productionCompany);
+        this.productionCompany = WordUtils.capitalizeFully(productionCompany, delimiters);
     }
 }
