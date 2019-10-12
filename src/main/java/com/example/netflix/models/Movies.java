@@ -38,7 +38,7 @@ public class Movies {
     private String productionCompany;
 
     @GeneratedValue
-    @Column(name = "unique_name")
+    @Column(name = "unique_name", unique = true)
     // based off on concat of movieName and releaseYear
     private String uniqueName;
 

@@ -3,9 +3,11 @@ package com.example.netflix.services;
 import com.example.netflix.NotFoundException;
 import com.example.netflix.models.Movies;
 import com.example.netflix.repositories.MoviesRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MoviesServicesImp implements MoviesServices {
     private final MoviesRepository moviesRepository;
 
