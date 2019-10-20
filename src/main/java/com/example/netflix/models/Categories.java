@@ -1,8 +1,6 @@
 package com.example.netflix.models;
 
-import com.example.netflix.configs.NamingConfig;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
 import org.apache.commons.text.WordUtils;
 
 import javax.persistence.*;
