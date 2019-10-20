@@ -1,7 +1,9 @@
 package com.example.netflix.models;
 
 import com.example.netflix.configs.NamingConfig;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.apache.commons.text.WordUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,6 +17,8 @@ import java.util.Set;
 @Entity
 @Table(name = "categories")
 public class Categories {
+    @JsonIgnore
+    final char[] delimiters = { ' ', '_', '-' };
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -25,6 +29,7 @@ public class Categories {
     @Column()
     private String category;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "category")
     Set<Movies> movies;
 
@@ -49,8 +54,7 @@ public class Categories {
     }
 
     public void setCategory(String category) {
-        NamingConfig nf = new NamingConfig();
-        this.category = nf.NamingConfig(category);
+        this.category = WordUtils.capitalizeFully(category, delimiters);
     }
 
     public Set<Movies> getMovies() {

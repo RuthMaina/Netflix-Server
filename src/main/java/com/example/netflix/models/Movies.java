@@ -1,15 +1,13 @@
 package com.example.netflix.models;
 
-import com.example.netflix.configs.NamingConfig;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.text.WordUtils;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.Year;
-import java.util.Arrays;
 import java.util.Set;
 
 //@Getter
@@ -21,6 +19,8 @@ import java.util.Set;
 @Entity
 @Table(name = "movies")
 public class Movies {
+    @JsonIgnore
+    final char[] delimiters = { ' ', '_', '-' };
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -35,11 +35,11 @@ public class Movies {
     @Column(name = "release_year")
     private Year releaseYear;
 
-    @NotNull(message = "Please enter the production company")
+    @NotNull(message = "Please enter the run-time of the movie")
     @Column(name = "production_company")
     private String productionCompany;
 
-//    @GeneratedValue
+    //    @GeneratedValue
     @Column()
     private String type;
 
@@ -51,7 +51,7 @@ public class Movies {
     Set<Categories> category;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private Users users;
 
     @ColumnDefault(value = "0")
@@ -59,6 +59,14 @@ public class Movies {
 
     @ColumnDefault(value = "true")
     private boolean pending;
+
+    public void setMovieName(String movieName) {
+        this.movieName = WordUtils.capitalizeFully(movieName, delimiters);
+    }
+
+    public void setProductionCompany(String productionCompany) {
+        this.productionCompany = WordUtils.capitalizeFully(productionCompany, delimiters);
+    }
 
     public Movies() {
     }
@@ -73,6 +81,10 @@ public class Movies {
         this.pending = pending;
     }
 
+    public char[] getDelimiters() {
+        return delimiters;
+    }
+
     public Long getId() {
         return id;
     }
@@ -83,11 +95,6 @@ public class Movies {
 
     public String getMovieName() {
         return movieName;
-    }
-
-    public void setMovieName(String movieName) {
-        NamingConfig nf = new NamingConfig();
-        this.movieName = nf.NamingConfig(movieName);
     }
 
     public Year getReleaseYear() {
@@ -102,11 +109,6 @@ public class Movies {
         return productionCompany;
     }
 
-    public void setProductionCompany(String productionCompany) {
-        NamingConfig nf = new NamingConfig();
-        this.productionCompany = nf.NamingConfig(productionCompany);
-    }
-
     public String getType() {
         return type;
     }
@@ -115,11 +117,11 @@ public class Movies {
         this.type = type;
     }
 
-    public Set<Categories> getCategory() {
+    public Set<Categories> getSetCategories() {
         return category;
     }
 
-    public void setCategory(Set<Categories> category) {
+    public void setSetCategories(Set<Categories> category) {
         this.category = category;
     }
 

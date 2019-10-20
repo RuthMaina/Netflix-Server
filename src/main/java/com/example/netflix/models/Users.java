@@ -1,5 +1,7 @@
 package com.example.netflix.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.apache.commons.text.WordUtils;
 import org.hibernate.annotations.ColumnDefault;
@@ -30,6 +32,7 @@ public class Users {
     @ColumnDefault(value = "false")
     private boolean admin;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "users")
     private Set<Movies> movies;
 
