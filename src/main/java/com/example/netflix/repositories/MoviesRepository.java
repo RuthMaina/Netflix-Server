@@ -3,6 +3,9 @@ package com.example.netflix.repositories;
 import com.example.netflix.models.Movies;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MoviesRepository extends JpaRepository<Movies, Long> {
+import java.util.List;
 
+public interface MoviesRepository extends JpaRepository<Movies, Long> {
+//    Movies findByCategoryAndType(String setCategories, String type);
+    List<Movies> findByCategoryAndType(String category, String type);
 }

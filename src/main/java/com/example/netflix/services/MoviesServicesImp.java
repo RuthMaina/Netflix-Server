@@ -1,6 +1,5 @@
 package com.example.netflix.services;
 
-import com.example.netflix.NotFoundException;
 import com.example.netflix.models.Movies;
 import com.example.netflix.repositories.MoviesRepository;
 import org.springframework.stereotype.Service;
@@ -22,9 +21,14 @@ public class MoviesServicesImp implements MoviesServices {
     }
 
     @Override
-    public Movies findById(Long id) {
-        return moviesRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
+    public List<Movies> findByCategoryAndType(String category, String type) {
+        return moviesRepository.findByCategoryAndType(category, type);
     }
+
+//    @Override
+//    public Movies findByCategoryAndType(String setCategories, String type) {
+//        return moviesRepository.findByCategoryAndType(setCategories, type);
+//    }
 
     @Override
     public Movies create(Movies movies) {

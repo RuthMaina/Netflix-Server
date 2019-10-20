@@ -24,7 +24,7 @@ public class Categories {
     @Column()
     private String category;
 
-    @ManyToMany(mappedBy = "setCategories")
+    @ManyToMany(mappedBy = "category")
     Set<Movies> movies;
 
     public Categories() {

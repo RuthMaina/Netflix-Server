@@ -36,7 +36,7 @@ public class Movies {
     @Column(name = "release_year")
     private Year releaseYear;
 
-    @NotNull(message = "Please enter the run-time of the movie")
+    @NotNull(message = "Please enter the production company")
     @Column(name = "production_company")
     private String productionCompany;
 
@@ -49,10 +49,10 @@ public class Movies {
             name = "movie_category",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    Set<Categories> setCategories;
+    Set<Categories> category;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private Users users;
 
     @ColumnDefault(value = "0")
@@ -61,10 +61,6 @@ public class Movies {
     @ColumnDefault(value = "true")
     private boolean pending;
 
-    public void setMovieName(String movieName) {
-        this.movieName = WordUtils.capitalizeFully(movieName, delimiters);
-    }
-
     public void setProductionCompany(String productionCompany) {
         this.productionCompany = WordUtils.capitalizeFully(productionCompany, delimiters);
     }
@@ -72,18 +68,14 @@ public class Movies {
     public Movies() {
     }
 
-    public Movies(@NotNull(message = "Please enter the name of the movie") String movieName, @NotNull(message = "Please enter the release year of the movie") Year releaseYear, @NotNull(message = "Please enter the run-time of the movie") String productionCompany, Set<Categories> setCategories, Users users, int count, boolean pending) {
+    public Movies(@NotNull(message = "Please enter the name of the movie") String movieName, @NotNull(message = "Please enter the release year of the movie") Year releaseYear, @NotNull(message = "Please enter the run-time of the movie") String productionCompany, Set<Categories> category, Users users, int count, boolean pending) {
         this.movieName = movieName;
         this.releaseYear = releaseYear;
         this.productionCompany = productionCompany;
-        this.setCategories = setCategories;
+        this.category = category;
         this.users = users;
         this.count = count;
         this.pending = pending;
-    }
-
-    public char[] getDelimiters() {
-        return delimiters;
     }
 
     public Long getId() {
@@ -118,12 +110,12 @@ public class Movies {
         this.type = type;
     }
 
-    public Set<Categories> getSetCategories() {
-        return setCategories;
+    public Set<Categories> getCategory() {
+        return category;
     }
 
-    public void setSetCategories(Set<Categories> setCategories) {
-        this.setCategories = setCategories;
+    public void setCategory(Set<Categories> category) {
+        this.category = category;
     }
 
     public Users getUsers() {
@@ -159,7 +151,7 @@ public class Movies {
                 ", releaseYear=" + releaseYear +
                 ", productionCompany='" + productionCompany + '\'' +
                 ", type='" + type + '\'' +
-                ", setCategories=" + setCategories +
+                ", category=" + category +
                 ", users=" + users +
                 ", count=" + count +
                 ", pending=" + pending +
