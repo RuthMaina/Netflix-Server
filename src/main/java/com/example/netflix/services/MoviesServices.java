@@ -10,8 +10,6 @@ public interface MoviesServices {
 
     List<Movies> findByCategoryAndType(String category, String type);
 
-//    Movies findByCategoryAndType(String setCategories, String type);
-
     Movies create(Movies movies);
 
     Long delete(Long id);

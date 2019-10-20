@@ -1,5 +1,6 @@
 package com.example.netflix.models;
 
+import com.example.netflix.configs.NamingConfig;
 import lombok.*;
 
 import javax.persistence.*;
@@ -48,7 +49,8 @@ public class Categories {
     }
 
     public void setCategory(String category) {
-        this.category = category;
+        NamingConfig nf = new NamingConfig();
+        this.category = nf.NamingConfig(category);
     }
 
     public Set<Movies> getMovies() {

@@ -25,11 +25,6 @@ public class MoviesServicesImp implements MoviesServices {
         return moviesRepository.findByCategoryAndType(category, type);
     }
 
-//    @Override
-//    public Movies findByCategoryAndType(String setCategories, String type) {
-//        return moviesRepository.findByCategoryAndType(setCategories, type);
-//    }
-
     @Override
     public Movies create(Movies movies) {
         return moviesRepository.save(movies);

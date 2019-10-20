@@ -1,5 +1,6 @@
 package com.example.netflix.models;
 
+import com.example.netflix.configs.NamingConfig;
 import lombok.*;
 import org.apache.commons.text.WordUtils;
 import org.hibernate.annotations.ColumnDefault;
@@ -20,8 +21,6 @@ import java.util.Set;
 @Entity
 @Table(name = "movies")
 public class Movies {
-
-    final char[] delimiters = { ' ', '_', '-' };
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -61,10 +60,6 @@ public class Movies {
     @ColumnDefault(value = "true")
     private boolean pending;
 
-    public void setProductionCompany(String productionCompany) {
-        this.productionCompany = WordUtils.capitalizeFully(productionCompany, delimiters);
-    }
-
     public Movies() {
     }
 
@@ -90,6 +85,11 @@ public class Movies {
         return movieName;
     }
 
+    public void setMovieName(String movieName) {
+        NamingConfig nf = new NamingConfig();
+        this.movieName = nf.NamingConfig(movieName);
+    }
+
     public Year getReleaseYear() {
         return releaseYear;
     }
@@ -100,6 +100,11 @@ public class Movies {
 
     public String getProductionCompany() {
         return productionCompany;
+    }
+
+    public void setProductionCompany(String productionCompany) {
+        NamingConfig nf = new NamingConfig();
+        this.productionCompany = nf.NamingConfig(productionCompany);
     }
 
     public String getType() {
@@ -145,7 +150,6 @@ public class Movies {
     @Override
     public String toString() {
         return "Movies{" +
-                "delimiters=" + Arrays.toString(delimiters) +
                 ", id=" + id +
                 ", movieName='" + movieName + '\'' +
                 ", releaseYear=" + releaseYear +

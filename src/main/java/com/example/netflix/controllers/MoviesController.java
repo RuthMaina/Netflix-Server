@@ -27,11 +27,6 @@ public class MoviesController {
         return moviesServices.findByCategoryAndType(category, type);
     }
 
-//    @GetMapping(value = "{setCategories}")
-//    public Movies findByCategoryType(@PathVariable(value = "setCategories") String setCategories, @RequestParam(value = "type") String type) {
-//        return moviesServices.findByCategoryAndType(setCategories, type);
-//    }
-
     @PostMapping
     public Movies create(@Valid @RequestBody Movies movies) {
         return moviesServices.create(movies);
