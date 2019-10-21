@@ -5,6 +5,7 @@ import com.example.netflix.services.MoviesServices;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -22,13 +23,20 @@ public class MoviesController {
         return moviesServices.findAll();
     }
 
-    @GetMapping(value = "{category}")
-    public List<Movies> findByCategoryAndType(@PathVariable(value = "category") String category, @RequestParam(value = "type") String type) {
-        return moviesServices.findByCategoryAndType(category, type);
+    @GetMapping(value = "findById/{id}")
+    public Movies findById(@PathVariable Long id) {
+        return moviesServices.findById(id);
+    }
+
+    @GetMapping(value = "{categoryId}")
+    public List<Movies> findByCategoryAndType(@PathVariable Long categoryId, @RequestParam(value = "type") String type) {
+        return moviesServices.findByCategoryAndType(categoryId, type);
     }
 
     @PostMapping
     public Movies create(@Valid @RequestBody Movies movies) {
         return moviesServices.create(movies);
     }
+
+
 }

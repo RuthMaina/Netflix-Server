@@ -1,26 +1,28 @@
 package com.example.netflix.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.jfr.Category;
+import lombok.*;
 import org.apache.commons.text.WordUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-//@Getter
-//@Setter
-//@ToString
-//@RequiredArgsConstructor
-//@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "categories")
 public class Categories {
-    @JsonIgnore
-    final char[] delimiters = { ' ', '_', '-' };
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(updatable = false)
+    @Column(name = "id", updatable = false)
     private Long id;
 
     @NotNull(message = "Please enter a category name")
@@ -31,44 +33,19 @@ public class Categories {
     @ManyToMany(mappedBy = "category")
     Set<Movies> movies;
 
-    public Categories() {
-    }
-
-    public Categories(@NotNull(message = "Please enter a category name") String category, Set<Movies> movies) {
-        this.category = category;
-        this.movies = movies;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
     public void setCategory(String category) {
-        this.category = WordUtils.capitalizeFully(category, delimiters);
+        this.category = WordUtils.capitalizeFully(category, ' ', '_', '-');
     }
 
-    public Set<Movies> getMovies() {
-        return movies;
+    public Categories(@NotNull(message = "Please enter a category name") String category) {
+        this.category = category;
     }
 
-    public void setMovies(Set<Movies> movies) {
-        this.movies = movies;
+    public Categories(Long aLong) {
+        this.id = aLong;
     }
 
-    @Override
-    public String toString() {
-        return "Categories{" +
-                "id=" + id +
-                ", category='" + category + '\'' +
-                ", movies=" + movies +
-                '}';
+    public static List<Categories> longCategories(List<Long> aLong){
+        return aLong.stream().map(Categories::new).collect(Collectors.toList());
     }
 }

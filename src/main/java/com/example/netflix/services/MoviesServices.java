@@ -8,7 +8,9 @@ public interface MoviesServices {
 
     List<Movies> findAll();
 
-    List<Movies> findByCategoryAndType(String category, String type);
+    Movies findById(Long id);
+
+    List<Movies> findByCategoryAndType(Long id, String type);
 
     Movies create(Movies movies);
 
