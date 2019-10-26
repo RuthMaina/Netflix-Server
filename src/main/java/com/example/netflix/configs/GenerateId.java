@@ -1,4 +1,4 @@
-package com.example.netflix;
+package com.example.netflix.configs;
 
 import java.time.Year;
 

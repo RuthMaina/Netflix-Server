@@ -54,8 +54,4 @@ public class Movies {
     public void setMovieName(String movieName) {
         this.movieName = WordUtils.capitalizeFully(movieName, ' ', '_', '-');
     }
-
-//    public Set<Categories> getCategories() {
-//        return category;
-//    }
 }

@@ -1,6 +1,6 @@
 package com.example.netflix.services;
 
-import com.example.netflix.GenerateId;
+import com.example.netflix.configs.GenerateId;
 import com.example.netflix.exceptions.DontMatchException;
 import com.example.netflix.exceptions.NotFoundException;
 import com.example.netflix.exceptions.UnknownException;
@@ -102,11 +102,6 @@ public class MoviesServicesImp implements MoviesServices {
             foundMovie.setReleaseYear(movies.getReleaseYear());
             foundMovie.setMovieId(GenerateId.generateMovieId(movies.getMovieName(), movies.getReleaseYear()));
             foundMovie.setType(foundMovie.getType());
-//            if (users.isAdmin()) {
-//                foundMovie.setType("Original");
-//            } else if (!users.isAdmin()) {
-//                foundMovie.setType("Suggested");
-//            }
             foundMovie.setCategory(movies.getCategory());
             foundMovie.setUser(users);
             return moviesRepository.save(foundMovie);

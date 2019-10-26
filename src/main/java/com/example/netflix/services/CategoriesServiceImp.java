@@ -59,19 +59,4 @@ public class CategoriesServiceImp implements CategoriesService {
         }
         throw new UnknownException("Something went wrong!");
     }
-
-//    @Override
-//    public Categories update(Categories categories) {
-//        Categories foundCounties = findById(categories.getId());
-//        foundCounties.setCategory(categories.getCategory());
-//        //do fo all fields
-//        return categoriesRepository.save(foundCounties);
-//    }
-
-//    @Override
-//    public Categories update(Long id, Categories categories) {
-//        Categories foundCategories = findById(id);
-//        foundCategories.setCategory(categories.getCategory());
-//        return categoriesRepository.save(foundCategories);
-//    }
 }
