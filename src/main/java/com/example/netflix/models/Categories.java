@@ -1,7 +1,6 @@
 package com.example.netflix.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jdk.jfr.Category;
 import lombok.*;
 import org.apache.commons.text.WordUtils;
 
@@ -21,9 +20,9 @@ import java.util.stream.Collectors;
 public class Categories {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false)
-    private Long id;
+    private String id;
 
     @NotNull(message = "Please enter a category name")
     @Column()
@@ -37,15 +36,16 @@ public class Categories {
         this.category = WordUtils.capitalizeFully(category, ' ', '_', '-');
     }
 
-    public Categories(@NotNull(message = "Please enter a category name") String category) {
-        this.category = category;
+    public Categories(Categories categories) {
+
     }
 
-    public Categories(Long aLong) {
-        this.id = aLong;
+    public Categories(String s) {
+        this.id = s;
+        this.category = s;
     }
 
-    public static List<Categories> longCategories(List<Long> aLong){
-        return aLong.stream().map(Categories::new).collect(Collectors.toList());
+    public static List<Categories> stringCategories(Set<Categories> s){
+        return s.stream().map(Categories::new).collect(Collectors.toList());
     }
 }

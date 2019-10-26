@@ -18,25 +18,28 @@ public class InitData implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        createAdmin();
+    public void run(String... args) {
+        createUser();
         createCategories();
     }
 
-    public void createAdmin(){
+    public void createUser(){
         if (usersRepository.count() == 0) {
-            Users admin = new Users("admin", true);
+            Users admin = new Users("admin", "admin@gmail.com", true);
             usersRepository.save(admin);
+
+            Users users = new Users("user", "user@gmail.com", false);
+            usersRepository.save(users);
         }
     }
 
     public void createCategories(){
         if (categoriesRepository.count() == 0) {
-            Categories category = new Categories("Action");
-            Categories category1 = new Categories("Adventure");
-            Categories category2 = new Categories("Comedy");
-            Categories category3 = new Categories("Romance");
-            Categories category4 = new Categories("Thriller");
+            Categories category = new Categories("action");
+            Categories category1 = new Categories("adventure");
+            Categories category2 = new Categories("comedy");
+            Categories category3 = new Categories("romance");
+            Categories category4 = new Categories("thriller");
             categoriesRepository.save(category);
             categoriesRepository.save(category1);
             categoriesRepository.save(category2);

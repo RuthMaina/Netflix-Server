@@ -11,5 +11,5 @@ public interface UsersService {
 
     Users create(Users users);
 
-    Long delete(Long id);
+    String delete(Long id, Long userId);
 }

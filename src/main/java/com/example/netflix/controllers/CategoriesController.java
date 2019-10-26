@@ -24,8 +24,8 @@ public class CategoriesController {
         return categoriesService.findAll();
     }
 
-    @GetMapping(value = "{id}")
-    public Categories findById(@PathVariable Long id) {
+    @GetMapping(value = "{id:[a-zA-Z &+-]*}")
+    public Categories findById(@PathVariable String id) {
         return categoriesService.findById(id);
     }
 
@@ -34,10 +34,10 @@ public class CategoriesController {
         return categoriesService.create(categories);
     }
 
-    @DeleteMapping(value = "delete/{id}")
-    public Map<String, Object> delete(@PathVariable Long id) {
+    @DeleteMapping(value = "delete/{id:[a-zA-Z &+-]*}")
+    public Map<String, Object> delete(@PathVariable String id, @RequestParam Long userId) {
         Map<String, Object> response = new HashMap<>();
-        response.put("Record deleted ", categoriesService.delete(id));
+        response.put("Record deleted ", categoriesService.delete(id, userId));
         return response;
     }
 }

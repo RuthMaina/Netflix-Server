@@ -35,9 +35,9 @@ public class UsersController {
     }
 
     @DeleteMapping(value = "delete/{id}")
-    public Map<String, Object> delete(@PathVariable Long id) {
+    public Map<String, Object> delete(@PathVariable Long id, @RequestParam Long userId) {
         Map<String, Object> response = new HashMap<>();
-        response.put("Record deleted ", usersService.delete(id));
+        response.put("Record deleted: ", usersService.delete(id, userId));
         return response;
     }
 }

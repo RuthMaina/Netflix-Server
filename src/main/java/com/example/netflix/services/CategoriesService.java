@@ -7,11 +7,11 @@ import java.util.List;
 public interface CategoriesService {
     List<Categories> findAll();
 
-    Categories findById(Long id);
+    Categories findById(String id);
 
     Categories create(Categories categories);
 
-    Long delete(Long id);
+    String delete(String id, Long userId);
 
 //    Categories update(Categories categories);
 

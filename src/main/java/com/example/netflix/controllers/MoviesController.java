@@ -2,11 +2,13 @@ package com.example.netflix.controllers;
 
 import com.example.netflix.models.Movies;
 import com.example.netflix.services.MoviesServices;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("movies")
@@ -24,19 +26,29 @@ public class MoviesController {
     }
 
     @GetMapping(value = "findById/{id}")
-    public Movies findById(@PathVariable Long id) {
+    public Movies findById(@PathVariable String id) {
         return moviesServices.findById(id);
     }
 
     @GetMapping(value = "{categoryId}")
-    public List<Movies> findByCategoryAndType(@PathVariable Long categoryId, @RequestParam(value = "type") String type) {
+    public List<Movies> findByCategoryAndType(@PathVariable String categoryId, @RequestParam(value = "type") String type) {
         return moviesServices.findByCategoryAndType(categoryId, type);
     }
 
-    @PostMapping
-    public Movies create(@Valid @RequestBody Movies movies) {
-        return moviesServices.create(movies);
+    @PostMapping(value = "{user}")
+    public Movies create(@PathVariable Long user, @Valid @RequestBody Movies movies) {
+        return moviesServices.create(user, movies);
     }
 
+    @DeleteMapping(value = "delete/{id}")
+    public Map<String, Object> delete(@PathVariable Long id, @RequestParam Long userId) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("Record deleted ", moviesServices.delete(id, userId));
+        return response;
+    }
 
+//    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public Movies update(@PathVariable Long id, @RequestParam Long userId, @Valid @RequestBody Movies movies) {
+//
+//    }
 }

@@ -8,15 +8,15 @@ public interface MoviesServices {
 
     List<Movies> findAll();
 
-    Movies findById(Long id);
+    Movies findById(String id);
 
-    List<Movies> findByCategoryAndType(Long id, String type);
+    List<Movies> findByCategoryAndType(String id, String type);
 
-    Movies create(Movies movies);
+    Movies create(Long user, Movies movies);
 
-    Long delete(Long id);
+    String delete(Long id, Long userId);
 
     Movies update(Movies movies);
 
-    Movies update(Long id, Movies movies);
+    Movies update(Long id, Long userId, Movies movies);
 }

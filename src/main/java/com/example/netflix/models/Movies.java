@@ -1,11 +1,8 @@
 package com.example.netflix.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.apache.commons.text.WordUtils;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.SelectBeforeUpdate;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,8 +13,8 @@ import java.util.Set;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
-@SelectBeforeUpdate
+//@NoArgsConstructor(access = AccessLevel.PRIVATE)
+//@SelectBeforeUpdate
 @Entity
 @Table(name = "movies")
 public class Movies {
@@ -35,11 +32,15 @@ public class Movies {
     @Column(name = "release_year")
     private Year releaseYear;
 
-    //    @GeneratedValue
+//    @NotNull
+    @Column(name = "movie_id", unique = true)
+    private String movieId;
+
     @Column()
     private String type;
 
     @ManyToMany(cascade = CascadeType.MERGE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(
             name = "movie_category",
             joinColumns = @JoinColumn(name = "movie_id"),
@@ -48,9 +49,13 @@ public class Movies {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Users users;
+    private Users user;
 
     public void setMovieName(String movieName) {
         this.movieName = WordUtils.capitalizeFully(movieName, ' ', '_', '-');
     }
+
+//    public Set<Categories> getCategories() {
+//        return category;
+//    }
 }
