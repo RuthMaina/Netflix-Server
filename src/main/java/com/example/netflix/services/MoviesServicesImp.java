@@ -31,7 +31,7 @@ public class MoviesServicesImp implements MoviesServices {
 
     @Override
     public Movies findById(Long id) {
-        return (Movies) moviesRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
+        return moviesRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
     }
 
     @Override
@@ -97,11 +97,16 @@ public class MoviesServicesImp implements MoviesServices {
         Users users = usersRepository.findById(userId).orElseThrow(() -> new NotFoundException("No user with id " + userId + " found"));
 
         // Validate who updates the movie
-        if (foundMovie.getUser().getId().equals(users.getId()) || users.isAdmin()) {
+        if (foundMovie.getUser().getId().equals(userId) || users.isAdmin()) {
             foundMovie.setMovieName(movies.getMovieName());
             foundMovie.setReleaseYear(movies.getReleaseYear());
             foundMovie.setMovieId(GenerateId.generateMovieId(movies.getMovieName(), movies.getReleaseYear()));
             foundMovie.setType(foundMovie.getType());
+//            if (users.isAdmin()) {
+//                foundMovie.setType("Original");
+//            } else if (!users.isAdmin()) {
+//                foundMovie.setType("Suggested");
+//            }
             foundMovie.setCategory(movies.getCategory());
             foundMovie.setUser(users);
         } else {

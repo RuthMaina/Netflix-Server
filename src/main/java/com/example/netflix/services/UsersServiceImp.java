@@ -34,8 +34,8 @@ public class UsersServiceImp implements UsersService {
 
     @Override
     public String delete(Long id, Long userId) {
-        usersRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
-        if (userId.equals(id)) {
+        Users foundUser = usersRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
+        if (userId.equals(id) || foundUser.isAdmin()) {
             try {
                 usersRepository.deleteById(id);
                 return id.toString();
