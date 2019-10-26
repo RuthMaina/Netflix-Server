@@ -30,13 +30,17 @@ public class MoviesServicesImp implements MoviesServices {
     }
 
     @Override
-    public Movies findById(String id) {
+    public Movies findById(Long id) {
         return (Movies) moviesRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
     }
 
     @Override
     public List<Movies> findByCategoryAndType(String categoryId, String type) {
-        return moviesRepository.findByCategoryAndType(new Categories(categoryId), type);
+        if (moviesRepository.findByCategoryAndType(new Categories(categoryId), type).isEmpty()){
+            throw new NotFoundException("There is no movie of the specified category and type");
+        } else {
+            return moviesRepository.findByCategoryAndType(new Categories(categoryId), type);
+        }
     }
 
     @Override
@@ -87,17 +91,22 @@ public class MoviesServicesImp implements MoviesServices {
     @Override
     public Movies update(Long id, Long userId, Movies movies) {
         // Check if movie exists
-        movies = moviesRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
+        Movies foundMovie = moviesRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
 
         // Check if user exists
         Users users = usersRepository.findById(userId).orElseThrow(() -> new NotFoundException("No user with id " + userId + " found"));
 
         // Validate who updates the movie
-        if (movies.getUser().getId().equals(users.getId()) || users.isAdmin()) {
-
+        if (foundMovie.getUser().getId().equals(users.getId()) || users.isAdmin()) {
+            foundMovie.setMovieName(movies.getMovieName());
+            foundMovie.setReleaseYear(movies.getReleaseYear());
+            foundMovie.setMovieId(GenerateId.generateMovieId(movies.getMovieName(), movies.getReleaseYear()));
+            foundMovie.setType(foundMovie.getType());
+            foundMovie.setCategory(movies.getCategory());
+            foundMovie.setUser(users);
         } else {
             throw new DontMatchException("The movie can only be updated by the user who created it or an administrator");
         }
-        return null;
+        throw new UnknownException("Something went wrong!");
     }
 }

@@ -26,7 +26,7 @@ public class MoviesController {
     }
 
     @GetMapping(value = "findById/{id}")
-    public Movies findById(@PathVariable String id) {
+    public Movies findById(@PathVariable Long id) {
         return moviesServices.findById(id);
     }
 
@@ -47,8 +47,8 @@ public class MoviesController {
         return response;
     }
 
-//    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public Movies update(@PathVariable Long id, @RequestParam Long userId, @Valid @RequestBody Movies movies) {
-//
-//    }
+    @PutMapping(value = "update/{id}")
+    public Movies update(@PathVariable Long id, @RequestParam Long userId, @Valid @RequestBody Movies movies) {
+        return moviesServices.update(id, userId, movies);
+    }
 }
