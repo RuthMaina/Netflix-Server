@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
+//@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "categories")
 public class Categories {

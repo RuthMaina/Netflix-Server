@@ -12,9 +12,9 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-//@RequiredArgsConstructor
-@AllArgsConstructor()
+//@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
+//@AllArgsConstructor()
 @Entity
 @Table(name = "users")
 public class Users {
