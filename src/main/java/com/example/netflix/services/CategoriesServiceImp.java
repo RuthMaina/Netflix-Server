@@ -35,6 +35,10 @@ public class CategoriesServiceImp implements CategoriesService {
 
     @Override
     public Categories create(Categories categories) {
+        if (categoriesRepository.findById(categories.getCategory().toLowerCase()).isPresent()) {
+            return (Categories) categoriesRepository.findById(categories.getCategory().toLowerCase()).get();
+        }
+
         categories.setId(categories.getCategory().toLowerCase());
         categories.setCategory(WordUtils.capitalizeFully(categories.getCategory(), ' ', '_', '-'));
         return categoriesRepository.save(categories);

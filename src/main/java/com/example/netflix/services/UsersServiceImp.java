@@ -29,6 +29,10 @@ public class UsersServiceImp implements UsersService {
 
     @Override
     public Users create(Users users) {
+
+        if (usersRepository.findByEmail(users.getEmail()).isPresent()) {
+            return usersRepository.findByEmail(users.getEmail()).get();
+        }
         return usersRepository.save(users);
     }
 
