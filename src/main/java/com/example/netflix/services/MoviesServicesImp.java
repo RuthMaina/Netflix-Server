@@ -109,9 +109,9 @@ public class MoviesServicesImp implements MoviesServices {
 //            }
             foundMovie.setCategory(movies.getCategory());
             foundMovie.setUser(users);
+            return moviesRepository.save(foundMovie);
         } else {
             throw new DontMatchException("The movie can only be updated by the user who created it or an administrator");
         }
-        throw new UnknownException("Something went wrong!");
     }
 }
