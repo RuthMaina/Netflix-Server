@@ -2,6 +2,7 @@ package com.example.netflix.repositories;
 
 import com.example.netflix.models.Categories;
 import com.example.netflix.models.Movies;
+import com.example.netflix.models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -12,5 +13,7 @@ public interface MoviesRepository extends JpaRepository<Movies, Long> {
 
     Optional<Movies> findByMovieId(String movieId);
 
-    Optional<Object> findById(String id);
+    Optional<Movies> findById(String id);
+
+    List<Movies> findByUser(Users user);
 }

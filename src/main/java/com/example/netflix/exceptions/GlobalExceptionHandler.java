@@ -34,4 +34,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public void unknownException(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
     }
+
+    @ExceptionHandler(RelationshipException.class)
+    public void RelationshipException(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.FORBIDDEN.value());
+    }
 }

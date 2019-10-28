@@ -40,12 +40,14 @@ public class Categories {
 
     }
 
-    public Categories(String s) {
-        this.id = s;
-        this.category = s;
+    public Categories(String category) {
+        this.category = WordUtils.capitalizeFully(category, ' ', '_', '-');
+        this.id = category.toLowerCase();
     }
 
     public static List<Categories> stringCategories(Set<Categories> s){
         return s.stream().map(Categories::new).collect(Collectors.toList());
     }
+
+
 }

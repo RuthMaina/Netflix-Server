@@ -35,9 +35,9 @@ public class CategoriesController {
     }
 
     @DeleteMapping(value = "delete/{id:[a-zA-Z &+-]*}")
-    public Map<String, Object> delete(@PathVariable String id, @RequestParam Long userId) {
+    public String delete(@PathVariable String id, @RequestParam Long userId) {
         Map<String, Object> response = new HashMap<>();
         response.put("Record deleted ", categoriesService.delete(id, userId));
-        return response;
+        return "Record " + categoriesService.delete(id, userId) + " deleted successfully";
     }
 }

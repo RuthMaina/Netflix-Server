@@ -41,10 +41,8 @@ public class MoviesController {
     }
 
     @DeleteMapping(value = "delete/{id}")
-    public Map<String, Object> delete(@PathVariable Long id, @RequestParam Long userId) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("Record deleted ", moviesServices.delete(id, userId));
-        return response;
+    public String delete(@PathVariable Long id, @RequestParam Long userId) {
+        return "Record " + moviesServices.delete(id, userId) + " deleted successfully";
     }
 
     @PutMapping(value = "update/{id}")

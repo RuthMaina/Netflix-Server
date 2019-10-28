@@ -30,7 +30,7 @@ public class CategoriesServiceImp implements CategoriesService {
 
     @Override
     public Categories findById(String id) {
-        return (Categories) categoriesRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
+        return (Categories) categoriesRepository.findById(id.toLowerCase()).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
     }
 
     @Override
@@ -39,8 +39,8 @@ public class CategoriesServiceImp implements CategoriesService {
             return (Categories) categoriesRepository.findById(categories.getCategory().toLowerCase()).get();
         }
 
-        categories.setId(categories.getCategory().toLowerCase());
         categories.setCategory(WordUtils.capitalizeFully(categories.getCategory(), ' ', '_', '-'));
+        categories.setId(categories.getCategory().toLowerCase());
         return categoriesRepository.save(categories);
     }
 
