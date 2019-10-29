@@ -30,6 +30,7 @@ public class CategoriesServiceImp implements CategoriesService {
 
     @Override
     public Categories findById(String id) {
+//        return categoriesRepository.findById(id.toLowerCase());
         return (Categories) categoriesRepository.findById(id.toLowerCase()).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
     }
 

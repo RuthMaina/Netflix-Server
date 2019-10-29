@@ -39,7 +39,9 @@ public class Movies {
     @Column()
     private String type;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+//    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY,
+             cascade = {CascadeType.MERGE})
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(
             name = "movie_category",

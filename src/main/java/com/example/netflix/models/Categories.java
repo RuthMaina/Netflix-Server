@@ -3,6 +3,7 @@ package com.example.netflix.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.apache.commons.text.WordUtils;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -29,7 +30,10 @@ public class Categories {
     private String category;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "category")
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE},
+            mappedBy = "category")
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     Set<Movies> movies;
 
     public void setCategory(String category) {

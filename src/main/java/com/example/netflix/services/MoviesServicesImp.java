@@ -9,6 +9,7 @@ import com.example.netflix.models.Movies;
 import com.example.netflix.models.Users;
 import com.example.netflix.repositories.MoviesRepository;
 import com.example.netflix.repositories.UsersRepository;
+import org.apache.commons.text.WordUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,10 +37,10 @@ public class MoviesServicesImp implements MoviesServices {
 
     @Override
     public List<Movies> findByCategoryAndType(String categoryId, String type) {
-        if (moviesRepository.findByCategoryAndType(new Categories(categoryId), type).isEmpty()){
+        if (moviesRepository.findByCategoryAndType(new Categories(categoryId.toLowerCase()), WordUtils.capitalizeFully(type)).isEmpty()){
             throw new NotFoundException("There is no movie of the specified category and type");
         } else {
-            return moviesRepository.findByCategoryAndType(new Categories(categoryId), type);
+            return moviesRepository.findByCategoryAndType(new Categories(categoryId.toLowerCase()), WordUtils.capitalizeFully(type));
         }
     }
 

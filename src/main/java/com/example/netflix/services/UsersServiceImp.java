@@ -45,22 +45,22 @@ public class UsersServiceImp implements UsersService {
     @Override
     public String delete(Long id, Long userId) {
         Users users = usersRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
-        Users isAdmin = usersRepository.findById(userId).orElseThrow(() -> new NotFoundException("No user with id " + id + " found"));
+        Users isAdmin = usersRepository.findById(userId).orElseThrow(() -> new NotFoundException("No user with id " + userId + " found"));
         List<Movies> movies = moviesRepository.findByUser(users);
 
         if (!movies.isEmpty()) {
-            throw  new RelationshipException("There is a movie created  by the user. Please delete the movie first");
+            throw new RelationshipException("There is a movie created by the user. Please delete the movie first");
         }
-        if (userId.equals(id) || isAdmin.isAdmin()) {
-            try {
-                usersRepository.deleteById(id);
-                return id.toString();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (userId.equals(id) || isAdmin.isAdmin()) {
+                try {
+                    usersRepository.deleteById(id);
+                    return id.toString();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                throw new DontMatchException("The IDs don't match");
             }
-        } else {
-             throw new DontMatchException("The IDs don't match");
+            throw new UnknownException("Something went wrong!");
         }
-        throw new UnknownException("Something went wrong!");
     }
-}
