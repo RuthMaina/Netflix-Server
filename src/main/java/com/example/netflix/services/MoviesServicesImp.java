@@ -37,7 +37,7 @@ public class MoviesServicesImp implements MoviesServices {
 
     @Override
     public List<Movies> findByCategoryAndType(String categoryId, String type) {
-        if (moviesRepository.findByCategoryAndType(new Categories(categoryId.toLowerCase()), WordUtils.capitalizeFully(type)).isEmpty()){
+        if (moviesRepository.findByCategoryAndType(new Categories(categoryId.toLowerCase()), WordUtils.capitalizeFully(type)).isEmpty()) {
             throw new NotFoundException("There is no movie of the specified category and type");
         } else {
             return moviesRepository.findByCategoryAndType(new Categories(categoryId.toLowerCase()), WordUtils.capitalizeFully(type));
@@ -67,20 +67,20 @@ public class MoviesServicesImp implements MoviesServices {
 
     @Override
     public String delete(Long id, Long userId) {
-    Movies movies = moviesRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
+        Movies movies = moviesRepository.findById(id).orElseThrow(() -> new NotFoundException("No record with id " + id + " found"));
 
-    Users users = usersRepository.findById(userId).orElseThrow(() -> new NotFoundException("No user with id " + userId + " found"));
+        Users users = usersRepository.findById(userId).orElseThrow(() -> new NotFoundException("No user with id " + userId + " found"));
 
-    if (movies.getUser().getId().equals(users.getId()) || users.isAdmin()) {
-        try {
-            moviesRepository.delete(movies);
-            return id.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (movies.getUser().getId().equals(users.getId()) || users.isAdmin()) {
+            try {
+                moviesRepository.delete(movies);
+                return id.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new DontMatchException("The movie can only be deleted by the user who created it or an administrator");
         }
-    } else {
-        throw new DontMatchException("The movie can only be deleted by the user who created it or an administrator");
-    }
         throw new UnknownException("Something went wrong!");
     }
 

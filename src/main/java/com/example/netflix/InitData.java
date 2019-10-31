@@ -23,7 +23,7 @@ public class InitData implements CommandLineRunner {
         createCategories();
     }
 
-    public void createUser(){
+    public void createUser() {
         if (usersRepository.count() == 0) {
             Users admin = new Users("admin", "admin@gmail.com", true);
             usersRepository.save(admin);
@@ -33,7 +33,7 @@ public class InitData implements CommandLineRunner {
         }
     }
 
-    public void createCategories(){
+    public void createCategories() {
         if (categoriesRepository.count() == 0) {
             Categories category = new Categories("action");
             Categories category1 = new Categories("adventure");

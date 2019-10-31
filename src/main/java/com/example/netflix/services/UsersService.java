@@ -5,7 +5,7 @@ import com.example.netflix.models.Users;
 import java.util.List;
 
 public interface UsersService {
-    List<Users>findAll();
+    List<Users> findAll();
 
     Users findById(Long id);
 

@@ -51,16 +51,16 @@ public class UsersServiceImp implements UsersService {
         if (!movies.isEmpty()) {
             throw new RelationshipException("There is a movie created by the user. Please delete the movie first");
         }
-            if (userId.equals(id) || isAdmin.isAdmin()) {
-                try {
-                    usersRepository.deleteById(id);
-                    return id.toString();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                throw new DontMatchException("The IDs don't match");
+        if (userId.equals(id) || isAdmin.isAdmin()) {
+            try {
+                usersRepository.deleteById(id);
+                return id.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            throw new UnknownException("Something went wrong!");
+        } else {
+            throw new DontMatchException("The IDs don't match");
         }
+        throw new UnknownException("Something went wrong!");
     }
+}

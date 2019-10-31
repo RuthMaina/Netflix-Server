@@ -32,16 +32,16 @@ public class Movies {
     @Column(name = "release_year")
     private Year releaseYear;
 
-//    @NotNull
+    //    @NotNull
     @Column(name = "movie_id", unique = true)
     private String movieId;
 
     @Column()
     private String type;
 
-//    @ManyToMany(cascade = {CascadeType.MERGE})
+    //    @ManyToMany(cascade = {CascadeType.MERGE})
     @ManyToMany(fetch = FetchType.LAZY,
-             cascade = {CascadeType.MERGE})
+            cascade = {CascadeType.MERGE})
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(
             name = "movie_category",

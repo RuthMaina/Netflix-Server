@@ -49,7 +49,7 @@ public class Categories {
         this.id = category.toLowerCase();
     }
 
-    public static List<Categories> stringCategories(Set<Categories> s){
+    public static List<Categories> stringCategories(Set<Categories> s) {
         return s.stream().map(Categories::new).collect(Collectors.toList());
     }
 
